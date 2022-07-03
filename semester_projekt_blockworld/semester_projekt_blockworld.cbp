@@ -34,11 +34,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/ArrayList.h" />
 		<Unit filename="include/Konfiguration.h" />
+		<Unit filename="include/Platz.h" />
+		<Unit filename="include/koord.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/ArrayList.cpp" />
 		<Unit filename="src/Konfiguration.cpp" />
+		<Unit filename="src/Platz.cpp" />
+		<Unit filename="src/koord.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

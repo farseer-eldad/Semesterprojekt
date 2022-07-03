@@ -1,49 +1,54 @@
 #include "Platz.h"
 
-Platz::Platz() : laenge(0)
-{
-    bloecke = new int[0];
-    top = 0;
-}
+Platz::Platz() : laenge(4){     //3 benutzbare plaetze
 
-Platz::Platz(int length) : laenge(length)
-{
     bloecke = new int[laenge];
     top = 0;
     setZero();
 }
-void Platz::addBlock(int name)
-{
-    if(top < laenge){
-        bloecke[top] = name;
-        top++;
-    }
+
+Platz::Platz(int length) : laenge(length+1){
+
+    bloecke = new int[laenge];
+    top = 0;
+    setZero();
 }
 
-int Platz::removeBlock()
-{
-    top--;
-        if(top <= 0){
-        int out = bloecke[top];
-        bloecke[top] = 0;
-        return out;
-    }
-}
+void Platz::setZero(){
 
-int Platz::getName()
-{
-    return bloecke[top-1];
-}
-
-int Platz::getName(int index)
-{
-    if(index < top);
-        return bloecke[index];
-}
-void Platz::setZero()
-{
-    for(int i = 0; i < laenge; ++i)
-    {
+    for(int i = 0; i < laenge; ++i){
         bloecke[i] = 0;
     }
 }
+
+void Platz::addBlock(int name){
+
+    if(top < laenge-1){
+        top++;
+        bloecke[top] = name;
+    }
+}
+
+int Platz::removeBlock(){
+
+    if(top > 0){
+        int out = bloecke[top];
+        bloecke[top] = 0;
+        top--;
+        return out;
+    }else return 0;
+}
+
+int Platz::getName(){
+
+    return bloecke[top];
+}
+
+int Platz::getName(int index){
+
+    if(index <= laenge-1 && index > 0){
+        return bloecke[index];
+    }else return 0;
+}
+
+

@@ -3,6 +3,13 @@
 
 class Platz
 {
+    private:
+        const int laenge;
+        int top;
+
+        int *bloecke;
+        void setZero();     //setzt alle werte auf 0;
+
     public:
         Platz();
         Platz(int length);
@@ -14,15 +21,6 @@ class Platz
 
         int removeBlock();      //entfernt Block am Ende und gibt dessen namen zurück
 
-        void setZero();     //setzt alle werte auf 0;
-
-    protected:
-
-    private:
-        const int laenge;
-        int top;
-
-        int *bloecke;
 };
 
 #endif // PLATZ_H

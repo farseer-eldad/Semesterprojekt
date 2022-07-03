@@ -3,11 +3,13 @@
 
 
 class koord{
-public:
-    int x;
-    int y;
-    koord();
-    koord(int inx, int iny);
+    public:
+        int x;
+        int y;
+        koord();
+        koord(int inx, int iny);
+    private:
+
 };
 
 

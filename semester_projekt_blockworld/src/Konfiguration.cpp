@@ -1,23 +1,23 @@
 #include "Konfiguration.h"
 
-Konfiguration::Konfiguration() : anzahlPl(0), anzahlBlproPlatz(0)
+Konfiguration::Konfiguration() : anzahlPl(0), anzahlBl(0)
 {
 
 }
 
-Konfiguration::Konfiguration(int menge) : anzahlPl(menge), anzahlBlproPlatz(menge)
+Konfiguration::Konfiguration(int menge) : anzahlPl(menge), anzahlBl(menge)
 {
     for(int i = 0; i < anzahlPl; ++i)
     {
-        plaetze.emplace_back(anzahlBlproPlatz);
+        plaetze.emplace_back(anzahlBl);
     }
 }
 
-Konfiguration::Konfiguration(int menge, int bloecke) : anzahlPl(menge), anzahlBlproPlatz(bloecke)
+Konfiguration::Konfiguration(int menge, int bloecke) : anzahlPl(menge), anzahlBl(bloecke)
 {
     for(int i = 0; i < anzahlPl; ++i)
     {
-        plaetze.emplace_back(anzahlBlproPlatz);
+        plaetze.emplace_back(anzahlBl);
     }
 }
 
@@ -25,7 +25,7 @@ Konfiguration::~Konfiguration()
 {
 
 }
-
+//-------------------------------------------------------------------
 void Konfiguration::addBlock(int nameOfBlock, int platzOfBlock)
 {
     plaetze[platzOfBlock].addBlock(nameOfBlock);
@@ -56,7 +56,7 @@ void Konfiguration::moveBlock(int current, int placement)
 koord Konfiguration::searchBlock(int name){
 
     for(int p = 0; p < anzahlPl; p++){
-        for(int i = 0; i < anzahlBlproPlatz; i++){
+        for(int i = 0; i < anzahlBl; i++){
             if(plaetze[p].getName(i) == name)
             {
                 koord platzierung = koord(p,i);
@@ -64,7 +64,8 @@ koord Konfiguration::searchBlock(int name){
             }
         }
     }
-    return koord();
+    koord out;
+    return out;
 }
 
 
