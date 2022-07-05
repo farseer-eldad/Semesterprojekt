@@ -1,5 +1,6 @@
 #include "Konfiguration.h"
 
+
 Konfiguration::Konfiguration() : anzahlPl(0), anzahlBl(0)
 {
 

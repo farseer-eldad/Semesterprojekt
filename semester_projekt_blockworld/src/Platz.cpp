@@ -1,5 +1,6 @@
 #include "Platz.h"
 
+
 Platz::Platz() : laenge(4){     //3 benutzbare plaetze
 
     bloecke = new int[laenge];

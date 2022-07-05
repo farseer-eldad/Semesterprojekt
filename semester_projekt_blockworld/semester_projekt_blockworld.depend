@@ -71,3 +71,30 @@
 1656767488 source:c:\users\janla\onedrive\documents\!uni\!module\grundlage programmierung\semester 2\semesterprojekt-main\semesterprojekt-main\semester_projekt_blockworld\src\platz.cpp
 	"Platz.h"
 
+1657033425 source:c:\users\niklas\desktop\ha_mehatronik_programming\semesterprojekt-main\semester_projekt_blockworld\src\konfiguration.cpp
+	"Konfiguration.h"
+
+1657033425 c:\users\niklas\desktop\ha_mehatronik_programming\semesterprojekt-main\semester_projekt_blockworld\include\konfiguration.h
+	"Platz.h"
+	"koord.h"
+	"vector"
+
+1657033425 c:\users\niklas\desktop\ha_mehatronik_programming\semesterprojekt-main\semester_projekt_blockworld\include\platz.h
+
+1657033425 c:\users\niklas\desktop\ha_mehatronik_programming\semesterprojekt-main\semester_projekt_blockworld\include\koord.h
+
+1657033425 source:c:\users\niklas\desktop\ha_mehatronik_programming\semesterprojekt-main\semester_projekt_blockworld\src\koord.cpp
+	"koord.h"
+
+1657033425 source:c:\users\niklas\desktop\ha_mehatronik_programming\semesterprojekt-main\semester_projekt_blockworld\src\platz.cpp
+	"Platz.h"
+
+1657033975 source:c:\users\niklas\desktop\ha_mehatronik_programming\semesterprojekt-main\semester_projekt_blockworld\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<math.h>
+	<stdbool.h>
+	"Konfiguration.h"
+	"koord.h"
+

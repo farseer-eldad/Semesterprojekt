@@ -1,7 +1,6 @@
 #ifndef KOORD_H_INCLUDED
 #define KOORD_H_INCLUDED
 
-
 class koord{
     public:
         int x;

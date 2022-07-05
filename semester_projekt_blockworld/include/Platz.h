@@ -1,6 +1,7 @@
 #ifndef PLATZ_H
 #define PLATZ_H
 
+
 class Platz
 {
     private:

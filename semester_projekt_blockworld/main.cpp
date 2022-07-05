@@ -14,149 +14,19 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos);
 void moveTopofBlock(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock);
 void moveTopofPlace(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock);
 
+Konfiguration &eingabe(string inputFile);
 
 
 int main()
 {
 
-    int p, b;
+//---------Eingabe der Konfigurationen-------------------------
 
-//---------Eingabe der Dimensionen-------------------------
-    cout << "Gib die Anzahl der Plaetze und Bloecke so an: <Plaetze> <Bloecke>" << endl;
-    cin >> p >> b;
-
-    p++;
-    b++;
-
-    Konfiguration curr (p, b);
-    Konfiguration goal (p, b);
+    Konfiguration curr = eingabe("InputStart.txt");
+    Konfiguration goal = eingabe("InputEnd.txt");
 
 
-//-----------Einlesen der Ausgangstellung--------------------
-    fstream inputStart;     //input start konfiguration
 
-    string line;
-
-    inputStart.open("InputStart.txt", std::fstream::in);
-
-    cout << "Start Array" << endl;
-
-    if(inputStart.is_open()){
-        int stringNumbers[10];      //speichern der Gelesenen Zahlen
-        int indexNumber = 0;        //zählt den Index von stringNumbers
-        int number = 0;             //zum Aufaddieren der Zahlen
-        int factor = 1;
-        int lineIndex = 1;          //gibt den Platz an den der BLock soll
-
-        char temp;
-
-        while(inputStart.get(temp)){    //ließt ganze Zeile ein, eine Zeile = ein Platz
-                if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
-                    stringNumbers[indexNumber] = temp - '0';
-                    indexNumber++;
-                } else{
-                    for(int k = indexNumber-1; k >= 0; --k){        //durchläuft die eingelesenen Stellen
-                        number += stringNumbers[k] * factor;        //errechnet die Zehnerpotenz der Stelle und multipliziert diese mit der Stelle aus stringNumbers
-                        indexNumber--;
-                        factor *= 10;
-                    }
-                    factor = 1; //setzt Zehnerpotenz zurück
-                    indexNumber = 0;
-                    curr.addBlock(number, lineIndex);
-                    number = 0;
-                    if(temp == '\n'){
-                        lineIndex++;
-                    }
-                }
-        }
-        for(int k = indexNumber-1; k >= 0; --k){
-            number += stringNumbers[k] * factor;
-            indexNumber--;
-            factor *= 10;
-        }
-        curr.addBlock(number, lineIndex);
-    }
-
-    inputStart.close();
-
-    /*int temp;
-    int k = 0;*/
-
-    /*for(int i = 0; i < p; ++i)
-    {
-        cout << "R." << i << ": ";
-        while(curr.nameOfBlock(i,k) != 0){
-            cout << curr.nameOfBlock(i,k) << ',';
-            k++;
-        }
-        k = 0;
-        cout << '\r' << endl;
-    }*/
-
-//----------------Einlesen der Zielstellung----------------------
-    fstream inputEnd;
-
-    inputEnd.open("InputEnd.txt", std::fstream::in);
-
-    cout << "End Array" << endl;
-
-    if(inputEnd.is_open()){
-        int stringNumbers[10];
-        int indexNumber = 0;
-        int number = 0;
-        int factor = 1;
-        int lineIndex = 1;
-
-        char temp;
-
-        while(inputEnd.get(temp)){
-                if(temp != ',' && temp != '\n'){
-                    stringNumbers[indexNumber] = temp - '0';
-                    indexNumber++;
-                } else{
-                    for(int k = indexNumber-1; k >= 0; --k){
-                        number += stringNumbers[k] * factor;
-                        indexNumber--;
-                        factor *= 10;
-                    }
-                    factor = 1;
-                    indexNumber = 0;
-                    goal.addBlock(number, lineIndex);
-                    number = 0;
-                    if(temp == '\n'){
-                        lineIndex++;
-                    }
-                }
-        }
-        for(int k = indexNumber-1; k >= 0; --k){
-            number += stringNumbers[k] * factor;
-            indexNumber--;
-            factor *= 10;
-        }
-        goal.addBlock(number, lineIndex);
-    }
-
-    inputEnd.close();
-
-
-    /*for(int i = 0; i < p; ++i)
-    {
-        cout << "R." << i << ": ";
-        while(goal.nameOfBlock(i,k) != 0){
-            cout << goal.nameOfBlock(i,k) << ',';
-            k++;
-        }
-        k = 0;
-        cout << '\r' << endl;
-    }
-
-
-    cout << "remove from curr " << curr.removeBlock(1) << endl;
-    cout << "remove from goal " << goal.removeBlock(3) << endl;
-
-    koord pos = curr.searchBlock(4);
-
-    cout << pos.x << "|" << pos.y << endl;*/
 
     //---------------------------------------------------sortierung
 
@@ -326,4 +196,90 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit anga
         }
     }
     cout << endl;
+}
+Konfiguration& eingabe(string inputFile){
+    fstream input;
+
+    string line;
+
+    input.open(inputFile, std::fstream::in);
+
+    cout << "Start Array" << endl;
+
+    if(input.is_open()){
+        int stringNumbers[10];      //speichern der Gelesenen Zahlen
+        int indexNumber = 0;        //zählt den Index von stringNumbers
+        int number = 0;             //zum Aufaddieren der Zahlen
+        int factor = 1;
+        int lineIndex = 0;          //gibt den Platz an den der BLock soll
+        int p, b;
+
+
+        char temp;
+        input.get(temp);
+
+        while(temp != '\n'){
+            if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
+                    stringNumbers[indexNumber] = temp - '0';
+                    indexNumber++;
+                } else{
+                    for(int k = indexNumber-1; k >= 0; --k){        //durchläuft die eingelesenen Stellen
+                        number += stringNumbers[k] * factor;        //errechnet die Zehnerpotenz der Stelle ond multipliziert diese mit der Stelle aus stringNumbers
+                        indexNumber--;
+                        factor *= 10;
+                    }
+                    if(indexNumber < 1){
+                        p = number;
+                        indexNumber++;
+                    } else{
+                        b = number;
+                    }
+                    indexNumber = 0;
+                    number = 0;
+                    factor = 1;
+                }
+            input.get(temp);
+        }
+
+        Konfiguration konfig = Konfiguration(p, b);
+
+        indexNumber = 0;
+        number = 0;
+        factor = 1;
+
+
+        while(input.get(temp)){    //ließt ganze Zeile ein, eine Zeile = ein Platz
+                if((temp != ',' && temp != '\n')&& temp != '0'){    //Zahlen werden eingelesen
+                    stringNumbers[indexNumber] = temp - '0';
+                    indexNumber++;
+                } else if(temp == '0'){
+                    lineIndex++;
+                } else{
+                    for(int k = indexNumber-1; k >= 0; --k){        //durchläuft die eingelesenen Stellen
+                        number += stringNumbers[k] * factor;        //errechnet die Zehnerpotenz der Stelle ond multipliziert diese mit der Stelle aus stringNumbers
+                        indexNumber--;
+                        factor *= 10;
+                    }
+                    factor = 1; //setzt Zehnerpotenz zurück
+                    indexNumber = 0;
+                    konfig.addBlock(number, lineIndex);
+                    number = 0;
+                    if(temp == '\n'){
+                        lineIndex++;
+                    }
+                }
+        }
+        for(int k = indexNumber-1; k >= 0; --k){
+            number += stringNumbers[k] * factor;
+            indexNumber--;
+            factor *= 10;
+        }
+        konfig.addBlock(number, lineIndex);
+
+    input.close();
+
+    return konfig;
+    }
+
+    input.close();
 }
