@@ -1,0 +1,20 @@
+verbesserungen:
+
+	J: eingabe der größen der konfiguration Über den file	Erste Zeile mit zwei Zahle der Form <Plätze>,<Blöcke>
+	
+	N: !schmiert nach dem einlesen ab, keine Ahnung warum weil ich keinen Error kriege und er die Zahle ordnungsgemäß einließt!
+
+	J: Funktion für die eingabe erstellen statt doppelt zu schreiben --> cleaner
+	
+	N: Hab ich gemacht.
+
+	J: wenn in der file eingabe 0 oder nichts (wahrscheilich einfacher mit 0) steht soll dieser platz Übersprungen werden
+	der witz ist das die top variable bei 0 bleibt
+	
+	N: !Konnte ich aus oben genannten Gründen noch nicht testen, sollte aber problemlos funktionieren (setzt lineIndex um 1 Hoch)
+	
+extra:
+
+	J: ich habe die konfig classe so verändert das alles bei 1 anfängt so das der 0 index "leer" oder "nicht gefunden" heißt
+
+	 
