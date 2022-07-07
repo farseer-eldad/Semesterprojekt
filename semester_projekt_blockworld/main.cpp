@@ -14,7 +14,7 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos);
 void moveTopofBlock(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock);
 void moveTopofPlace(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock);
 
-Konfiguration &eingabe(string inputFile);
+Konfiguration eingabe(string inputFile);
 
 
 int main()
@@ -162,7 +162,7 @@ void konfigAusgabe(Konfiguration kZuAusgabe){
     int onBlock = b;
 
     for(int i=b-1; i>0; i--){
-        for(int j=1;j<p; j++){
+        for(int j=1;j<p+1; j++){
             if(i!=onBlock){
                 cout << endl;
                 onBlock = i;
@@ -181,7 +181,7 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit anga
     int onBlock = b;
 
     for(int i=b-1; i>0; i--){
-        for(int j=1;j<p; j++){
+        for(int j=1;j<p+1; j++){
             if(i!=onBlock){
                 cout << endl;
                 onBlock = i;
@@ -197,7 +197,7 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit anga
     }
     cout << endl;
 }
-Konfiguration& eingabe(string inputFile){
+Konfiguration eingabe(string inputFile){
     fstream input;
 
     string line;
@@ -246,15 +246,15 @@ Konfiguration& eingabe(string inputFile){
         indexNumber = 0;
         number = 0;
         factor = 1;
-        lineIndex = 0;
+        lineIndex = 1;
 
 
         while(input.get(temp)){    //ließt ganze Zeile ein, eine Zeile = ein Platz
-                if((temp != ',' && temp != '\n')&& temp != '0'){    //Zahlen werden eingelesen
+                if(temp == '0' && indexNumber == 0){ //wenn 0 gelesen wird und vorher nichts eingelesen wurde
+                    lineIndex++;
+                }else if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
                     stringNumbers[indexNumber] = temp - '0';
                     indexNumber++;
-                } else if(temp == '0'){
-                    lineIndex++;
                 } else{
                     for(int k = indexNumber-1; k >= 0; --k){        //durchläuft die eingelesenen Stellen
                         number += stringNumbers[k] * factor;        //errechnet die Zehnerpotenz der Stelle ond multipliziert diese mit der Stelle aus stringNumbers

@@ -3,7 +3,7 @@
 
 #include "Platz.h"
 #include "koord.h"
-#include "vector"
+#include <vector>
 
 using std::vector;
 
@@ -11,7 +11,7 @@ using std::vector;
 class Konfiguration
 {
     private:
-    vector<Platz> plaetze;                  //platz array scaffold
+    Platz **plaetze;                  //platz array scaffold
     void init();
 
     public:
