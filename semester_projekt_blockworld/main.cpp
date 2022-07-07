@@ -216,9 +216,9 @@ Konfiguration& eingabe(string inputFile){
 
 
         char temp;
-        input.get(temp);
 
-        while(temp != '\n'){
+        do{
+            input.get(temp);
             if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
                     stringNumbers[indexNumber] = temp - '0';
                     indexNumber++;
@@ -228,9 +228,9 @@ Konfiguration& eingabe(string inputFile){
                         indexNumber--;
                         factor *= 10;
                     }
-                    if(indexNumber < 1){
+                    if(lineIndex < 1){
                         p = number;
-                        indexNumber++;
+                        lineIndex++;
                     } else{
                         b = number;
                     }
@@ -238,14 +238,15 @@ Konfiguration& eingabe(string inputFile){
                     number = 0;
                     factor = 1;
                 }
-            input.get(temp);
-        }
+
+        }while(temp != '\n');
 
         Konfiguration konfig = Konfiguration(p, b);
 
         indexNumber = 0;
         number = 0;
         factor = 1;
+        lineIndex = 0;
 
 
         while(input.get(temp)){    //ließt ganze Zeile ein, eine Zeile = ein Platz
