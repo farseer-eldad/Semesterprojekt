@@ -169,7 +169,7 @@ void konfigAusgabe(Konfiguration kZuAusgabe){
             }
             if(kZuAusgabe.nameOfBlock(j,i)!=0){
                 cout << " " << kZuAusgabe.nameOfBlock(j,i) << "\t";
-            }else cout << "  " << "\t";
+            }else cout << " " << "\t";
         }
     }
     cout << endl;
@@ -216,10 +216,12 @@ Konfiguration eingabe(string inputFile){
 
 
         char temp;
+//-------------Einlesen der Dimensionen für die Konfigurtation------------------------
 
+//Anzahl der Plätze und Blöcke stehen in der ersten Zeile der .txt Dater mit "|" getrennt
         do{
             input.get(temp);
-            if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
+            if(temp != '|' && temp != '\n'){    //Zahlen werden eingelesen
                     stringNumbers[indexNumber] = temp - '0';
                     indexNumber++;
                 } else{
@@ -239,17 +241,19 @@ Konfiguration eingabe(string inputFile){
                     factor = 1;
                 }
 
-        }while(temp != '\n');
+        }while(temp != '\n');   //wenn erste Zeile endet
 
         Konfiguration konfig = Konfiguration(p, b);
 
+//-------setze Laufvariablen zurück----------------------------------
         indexNumber = 0;
         number = 0;
         factor = 1;
         lineIndex = 1;
+//---------------------Ließt den Rest der Datei----------------------
 
-
-        while(input.get(temp)){    //ließt ganze Zeile ein, eine Zeile = ein Platz
+        while(input.get(temp)){    //läuft bis keine Zeichen mehr eingelesen werden
+            if(lineIndex <= p+1)
                 if(temp == '0' && indexNumber == 0){ //wenn 0 gelesen wird und vorher nichts eingelesen wurde
                     lineIndex++;
                 }else if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
@@ -283,4 +287,5 @@ Konfiguration eingabe(string inputFile){
     }
 
     input.close();
+    return Konfiguration();
 }

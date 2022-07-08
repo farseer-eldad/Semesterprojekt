@@ -6,7 +6,7 @@ Konfiguration::Konfiguration() : anzahlPl(0), anzahlBl(0)
 
 }
 
-Konfiguration::Konfiguration(int menge) : anzahlPl(menge+1), anzahlBl(menge)
+Konfiguration::Konfiguration(int menge) : anzahlPl(menge+1), anzahlBl(menge)   //anzahl der Plätze muss menge+1 sein, damit Indizes von 1 bis menge gehen
 {
     plaetze = new Platz*[anzahlPl];
     for(int i = 0; i <= anzahlPl; ++i)
@@ -29,31 +29,43 @@ Konfiguration::~Konfiguration()
 
 }
 //-------------------------------------------------------------------
-void Konfiguration::addBlock(int nameOfBlock, int platzOfBlock)
+void Konfiguration::addBlock(int name, int platz)
 {
-    plaetze[platzOfBlock]->addBlock(nameOfBlock);
+    if(platz < anzahlPl){
+        plaetze[platz]->addBlock(name);
+    }
 }
 
 int Konfiguration::nameOfBlock(int platz, int block)
 {
-    return plaetze[platz]->getName(block);
+    if(platz < anzahlPl){
+        return plaetze[platz]->getName(block);
+    }
+    return 0;
 }
 
 int Konfiguration::nameOfBlock(int platz)
 {
-    return plaetze[platz]->getName();
+    if(platz < anzahlPl){
+        return plaetze[platz]->getName();
+    }
 }
 
 int Konfiguration::removeBlock(int platz)
 {
-    int temp = plaetze[platz]->removeBlock();
-    return temp;
+    if(platz < anzahlPl){
+        int temp = plaetze[platz]->removeBlock();
+        return temp;
+    }
+    return 0;
 }
 
 void Konfiguration::moveBlock(int current, int placement)
 {
-    int block = plaetze[current]->removeBlock();
-    plaetze[placement]->addBlock(block);
+    if(current < anzahlPl && placement < anzahlPl){
+        int block = plaetze[current]->removeBlock();
+        plaetze[placement]->addBlock(block);
+    }
 }
 
 koord Konfiguration::searchBlock(int name){     //gibt Koordinate des Blocks name zurück (<platz>,<höhe>)

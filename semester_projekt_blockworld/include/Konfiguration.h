@@ -18,14 +18,14 @@ class Konfiguration
     public:
         const int anzahlPl, anzahlBl;   //anzahl plaetze, anzahl bloecke
 
-        Konfiguration();            //konstruiert 0 Konfiguration
+        Konfiguration();
         Konfiguration(int menge);       //Anzahl Plaetze und Bloecke gleich
         Konfiguration(int menge, int bloecke);      //Anzahl Plaetze und Bloecke verschieden
         ~Konfiguration();
 
 
 
-        void addBlock(int platzOfBlock, int nameOfBLock);   //fügt Block mit Namen nameOfBlock auf Platz mit Nummer platzOfBlock ein
+        void addBlock(int platz, int name);   //fügt Block mit Namen nameOfBlock auf Platz mit Nummer platzOfBlock ein
 
         void moveBlock(int current, int placement); //current gibt den Platz an auf dem der Block steht, placement ist der Platz auf den der Block geschoben werden soll
 
