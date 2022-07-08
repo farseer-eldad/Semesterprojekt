@@ -6,7 +6,7 @@ Konfiguration::Konfiguration() : anzahlPl(0), anzahlBl(0)
 
 }
 
-Konfiguration::Konfiguration(int menge) : anzahlPl(menge), anzahlBl(menge)
+Konfiguration::Konfiguration(int menge) : anzahlPl(menge+1), anzahlBl(menge)
 {
     plaetze = new Platz*[anzahlPl];
     for(int i = 0; i <= anzahlPl; ++i)
@@ -15,7 +15,7 @@ Konfiguration::Konfiguration(int menge) : anzahlPl(menge), anzahlBl(menge)
     }
 }
 
-Konfiguration::Konfiguration(int menge, int bloecke) : anzahlPl(menge), anzahlBl(bloecke)
+Konfiguration::Konfiguration(int menge, int bloecke) : anzahlPl(menge+1), anzahlBl(bloecke)
 {
     plaetze = new Platz*[anzahlPl];
     for(int i = 0; i <= anzahlPl; ++i)
@@ -56,10 +56,10 @@ void Konfiguration::moveBlock(int current, int placement)
     plaetze[placement]->addBlock(block);
 }
 
-koord Konfiguration::searchBlock(int name){
+koord Konfiguration::searchBlock(int name){     //gibt Koordinate des Blocks name zurück (<platz>,<höhe>)
 
-    for(int p = 0; p < anzahlPl; p++){
-        for(int i = 0; i < anzahlBl; i++){
+    for(int p = 1; p < anzahlPl; p++){
+        for(int i = 1; i < anzahlBl; i++){
             if(plaetze[p]->getName(i) == name)
             {
                 koord platzierung = koord(p,i);

@@ -8,7 +8,7 @@ Platz::Platz() : laenge(4){     //3 benutzbare plaetze
     setZero();
 }
 
-Platz::Platz(int length) : laenge(length+1){
+Platz::Platz(int length) : laenge(length+1){    //length + 1 damit Blöcke ab Indize 1 gestapelt werden
 
     bloecke = new int[laenge];
     top = 0;
@@ -22,7 +22,7 @@ void Platz::setZero(){
     }
 }
 
-void Platz::addBlock(int name){
+void Platz::addBlock(int name){     //beginnt mit Indize 1 als untersten Block -> top = 0 -> leerer Platz
 
     if(top < laenge-1){
         top++;

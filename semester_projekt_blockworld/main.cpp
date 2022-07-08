@@ -162,7 +162,7 @@ void konfigAusgabe(Konfiguration kZuAusgabe){
     int onBlock = b;
 
     for(int i=b-1; i>0; i--){
-        for(int j=1;j<p+1; j++){
+        for(int j=1;j<p; j++){
             if(i!=onBlock){
                 cout << endl;
                 onBlock = i;
@@ -181,7 +181,7 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit anga
     int onBlock = b;
 
     for(int i=b-1; i>0; i--){
-        for(int j=1;j<p+1; j++){
+        for(int j=1;j<p; j++){
             if(i!=onBlock){
                 cout << endl;
                 onBlock = i;

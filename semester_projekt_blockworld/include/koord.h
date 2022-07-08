@@ -1,7 +1,7 @@
 #ifndef KOORD_H_INCLUDED
 #define KOORD_H_INCLUDED
 
-class koord{
+class koord{        //Klasse um Koordinaten x und y zu speichern
     public:
         int x;
         int y;

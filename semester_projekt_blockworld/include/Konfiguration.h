@@ -11,8 +11,9 @@ using std::vector;
 class Konfiguration
 {
     private:
-    Platz **plaetze;                  //platz array scaffold
+    Platz **plaetze;                  //array das Plätze speichert
     void init();
+    friend class Platz;
 
     public:
         const int anzahlPl, anzahlBl;   //anzahl plaetze, anzahl bloecke
@@ -34,6 +35,8 @@ class Konfiguration
         int nameOfBlock(int platz, int block);
 
         int removeBlock(int platz); //entfernt und gibt aus den obersten Block an Platz, bei fehler gibt 0 zurück
+
+        int getTop(int place);  //gibt Index des höchsten Blocks auf Platz Place zurück
 
 };
 

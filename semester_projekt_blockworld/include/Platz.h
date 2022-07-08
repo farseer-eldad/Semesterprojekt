@@ -5,6 +5,7 @@
 class Platz
 {
     private:
+        friend class Konfiguration;
         const int laenge;
         int top;
 
