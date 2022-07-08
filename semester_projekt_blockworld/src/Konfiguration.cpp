@@ -68,6 +68,13 @@ void Konfiguration::moveBlock(int current, int placement)
     }
 }
 
+int Konfiguration::getTop(int platz){
+    if(platz < anzahlPl){
+        return plaetze[platz]->top;
+    }
+    return 0;
+}
+
 koord Konfiguration::searchBlock(int name){     //gibt Koordinate des Blocks name zurück (<platz>,<höhe>)
 
     for(int p = 1; p < anzahlPl; p++){
