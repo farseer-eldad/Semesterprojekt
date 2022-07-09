@@ -35,7 +35,7 @@ int main()
     cout << "goal konfiguration" << endl;
     konfigAusgabe(goal);
 
-    koord tPos (1,1);
+    /*koord tPos (1,1);
     int blocksSorted = 0;
 
     while(blocksSorted != goal.anzahlBl-1){
@@ -103,7 +103,7 @@ int main()
 
     cout << endl << "end result: ";
 
-    konfigAusgabe(curr);
+    konfigAusgabe(curr);*/
 
 
     return 0;
@@ -157,11 +157,11 @@ void moveTopofPlace(Konfiguration &curr, koord topBlockPos, int topBlocks, koord
 
 
 void konfigAusgabe(Konfiguration kZuAusgabe){
-    int b = kZuAusgabe.anzahlBl-1;
+    int b = kZuAusgabe.anzahlBl;
     int p = kZuAusgabe.anzahlPl;
     int onBlock = b;
 
-    for(int i=b-1; i>0; i--){
+    for(int i=b; i>0; i--){
         for(int j=1;j<p; j++){
             if(i!=onBlock){
                 cout << endl;
@@ -176,11 +176,11 @@ void konfigAusgabe(Konfiguration kZuAusgabe){
 }
 
 void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit angabe
-    int b = kZuAusgabe.anzahlBl-1;
+    int b = kZuAusgabe.anzahlBl;
     int p = kZuAusgabe.anzahlPl;
     int onBlock = b;
 
-    for(int i=b-1; i>0; i--){
+    for(int i=b; i>0; i--){
         for(int j=1;j<p; j++){
             if(i!=onBlock){
                 cout << endl;
@@ -200,14 +200,10 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit anga
 Konfiguration eingabe(string inputFile){
     fstream input;
 
-    string line;
-
     input.open(inputFile, std::fstream::in);
 
-    cout << "Start Array" << endl;
-
     if(input.is_open()){
-        int stringNumbers[10];      //speichern der Gelesenen Zahlen
+        int stringNumbers[10];      //speichern der gelesenen Zahlen --> Höchsten 10-stellige Zahlen
         int indexNumber = 0;        //zählt den Index von stringNumbers
         int number = 0;             //zum Aufaddieren der Zahlen
         int factor = 1;
@@ -253,10 +249,8 @@ Konfiguration eingabe(string inputFile){
 //---------------------Ließt den Rest der Datei----------------------
 
         while(input.get(temp)){    //läuft bis keine Zeichen mehr eingelesen werden
-            if(lineIndex <= p+1)
-                if(temp == '0' && indexNumber == 0){ //wenn 0 gelesen wird und vorher nichts eingelesen wurde
-                    lineIndex++;
-                }else if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
+            if(lineIndex <= p)
+                if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
                     stringNumbers[indexNumber] = temp - '0';
                     indexNumber++;
                 } else{
@@ -280,7 +274,6 @@ Konfiguration eingabe(string inputFile){
             factor *= 10;
         }
         konfig.addBlock(number, lineIndex);
-
     input.close();
 
     return konfig;
