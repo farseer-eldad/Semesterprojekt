@@ -11,8 +11,8 @@ using namespace std;
 
 void konfigAusgabe(Konfiguration kZuAusgabe);
 void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos);
-void moveTopofBlock(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock);
-void moveTopofPlace(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock);
+void moveTopofBlock(Konfiguration &curr, koord targetBlPos, koord targetPos, int targetBlock, int &counter);
+void moveTopofPlace(Konfiguration &curr, koord targetBlPos, koord targetPos, int targetBlock, int &counter);
 
 Konfiguration eingabe(string inputFile);
 
@@ -32,44 +32,38 @@ int main()
 
     cout << endl << "current konfiguration" << endl;
     konfigAusgabe(curr);
-    cout << "goal konfiguration" << endl;
+    cout << endl << "goal konfiguration" << endl;
     konfigAusgabe(goal);
 
-    /*koord tPos (1,1);
+    koord tPos (1,1);
     int blocksSorted = 0;
+    int stepCount = 0;
 
-    while(blocksSorted != goal.anzahlBl-1){
+    while(blocksSorted != goal.anzahlBl){
 
         int tBlock = goal.nameOfBlock(tPos.x,tPos.y);
         koord tBlPos = curr.searchBlock(tBlock);    //target block position
 
-        cout << endl << tBlock << " to " << tPos.x << ", " << tPos.y <<endl ;
-        cout << blocksSorted << " blocks sorted, " << goal.anzahlBl-blocksSorted-1 << " left" << endl;
-
-        if(tBlock == 0) cout << "tBlock is 0" << endl;;
-
         if(tBlPos.x!=tPos.x && tBlock!=0){
-            koord topBlockPos = curr.searchBlock(curr.nameOfBlock(tBlPos.x));    //top block position (gleicher platz wie tBlPos)
+            cout << endl << tBlock << " to " << tPos.x << ", " << tPos.y <<endl ;
 
-            unsigned int topBlocks = tBlPos.y-topBlockPos.y;   //menge der bloecke auf unseren target Block
+            moveTopofBlock(curr,tBlPos,tPos,tBlock,stepCount);
 
-            moveTopofBlock(curr,topBlockPos,topBlocks,tBlPos,tPos,tBlock);
+            tBlPos = curr.searchBlock(tBlock);
 
-
-            topBlockPos = curr.searchBlock(curr.nameOfBlock(tPos.x));    //top block position (gleicher platz wie tPos)
-            topBlocks = topBlockPos.y-tPos.y-1;   //menge der bloecke auf unseren target Place
-
-            moveTopofPlace(curr,topBlockPos,topBlocks,tBlPos,tPos,tBlock);
+            moveTopofPlace(curr,tBlPos,tPos,tBlock,stepCount);
 
             curr.moveBlock(tBlPos.x,tPos.x);
+            stepCount++;
+            cout << endl << "step: " << stepCount << endl;
 
             konfigAusgabe(curr,curr.searchBlock(tBlock));
 
-        }else if(tBlPos.y!=tPos.y && tBlock!=0){
-            koord topBlockPos = curr.searchBlock(curr.nameOfBlock(tBlPos.x));    //top block position (gleicher platz wie tBlPos)
-            unsigned int topBlocks = tBlPos.y-topBlockPos.y;   //menge der bloecke auf unseren target Block
 
-            moveTopofBlock(curr,topBlockPos,topBlocks,tBlPos,tPos,tBlock);
+        }else if(tBlPos.y!=tPos.y && tBlock!=0){
+            cout << endl << tBlock << " to " << tPos.x << ", " << tPos.y <<endl ;
+
+            moveTopofBlock(curr,tBlPos,tPos,tBlock,stepCount);
 
             int blockMoveindex = 1;
             if(tBlPos.x-blockMoveindex < 1){
@@ -77,43 +71,50 @@ int main()
             }
 
             curr.moveBlock(tBlPos.x,tBlPos.x-blockMoveindex);    //block in die andere richtung bewegen
+            stepCount++;
+            cout << endl << "step: " << stepCount << endl;
 
             konfigAusgabe(curr,curr.searchBlock(tBlock));
 
             tBlPos = curr.searchBlock(tBlock);
 
-            topBlockPos = curr.searchBlock(curr.nameOfBlock(tPos.x));    //top block position (gleicher platz wie tPos)
-            topBlocks = topBlockPos.y-tPos.y-1;   //menge der bloecke auf unseren target Place
-
-            moveTopofPlace(curr,topBlockPos,topBlocks,tBlPos,tPos,tBlock);
+            moveTopofPlace(curr,tBlPos,tPos,tBlock,stepCount);
 
             curr.moveBlock(tBlPos.x,tPos.x);
+            stepCount++;
+            cout << endl << "step: " << stepCount << endl;
 
             konfigAusgabe(curr,curr.searchBlock(tBlock));
+
         }
 
         tPos.x++;
-        if(tBlock != 0) blocksSorted++;
+        if(tBlock != 0)blocksSorted++;
         if (tPos.x==goal.anzahlPl){
             tPos.x = 1;
             tPos.y++;
         }
 
+
     }
 
-    cout << endl << "end result: ";
+    cout << endl << stepCount << " steps" << endl << endl << "end result: ";
 
-    konfigAusgabe(curr);*/
+    konfigAusgabe(curr);
 
 
     return 0;
 }
 
-void moveTopofBlock(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock){
-    if(topBlocks){
-        int moveindex = 1;
-        for(int i=topBlockPos.y; i>targetBlPos.y; i--){
+void moveTopofBlock(Konfiguration &curr, koord targetBlPos, koord targetPos, int targetBlock, int &counter){
+    koord topBlockPos = curr.searchBlock(curr.nameOfBlock(targetBlPos.x));    //top block position (gleicher platz wie tBlPos)
+    unsigned int NtopBlocks = topBlockPos.y-targetBlPos.y;
 
+    if(NtopBlocks>0){
+        int moveindex = 1;
+        //cout << (topBlockPos.y) << endl;
+        for(int i=topBlockPos.y; i>targetBlPos.y; i--){
+            cout << "moveindex: " << moveindex << endl;
             if(topBlockPos.x+moveindex == targetPos.x){
                 moveindex++;
             }
@@ -124,7 +125,11 @@ void moveTopofBlock(Konfiguration &curr, koord topBlockPos, int topBlocks, koord
                 moveindex++;
             }
 
+
             curr.moveBlock(topBlockPos.x,topBlockPos.x+moveindex);
+            counter++;
+
+            cout << endl << "step: " << counter << endl;
 
             konfigAusgabe(curr,curr.searchBlock(targetBlock));
 
@@ -132,8 +137,21 @@ void moveTopofBlock(Konfiguration &curr, koord topBlockPos, int topBlocks, koord
     }
 }
 
-void moveTopofPlace(Konfiguration &curr, koord topBlockPos, int topBlocks, koord targetBlPos, koord targetPos, int targetBlock){
-    if(topBlocks){
+void moveTopofPlace(Konfiguration &curr, koord targetBlPos, koord targetPos, int targetBlock, int &counter){
+
+    koord topBlockPos;
+
+    int topBlockName = curr.nameOfBlock(targetPos.x);
+
+    if(topBlockName != 0){      //filtert den fall das targetPos leer ist
+        topBlockPos = curr.searchBlock(topBlockName);    //top block position (gleicher platz wie tPos)
+    }else{
+        return;
+    }
+
+    unsigned int NtopBlocks = topBlockPos.y-targetPos.y+1;
+
+    if(NtopBlocks>0){
         int moveindex = 1;
         for(int i=topBlockPos.y; i>targetPos.y-1; i--){
 
@@ -148,20 +166,22 @@ void moveTopofPlace(Konfiguration &curr, koord topBlockPos, int topBlocks, koord
             }
 
             curr.moveBlock(topBlockPos.x,topBlockPos.x+moveindex);
+            counter++;
+
+            cout << endl << "step: " << counter << endl;
 
             konfigAusgabe(curr,curr.searchBlock(targetBlock));
-
         }
     }
 }
 
 
 void konfigAusgabe(Konfiguration kZuAusgabe){
-    int b = kZuAusgabe.anzahlBl;
+    int b = kZuAusgabe.anzahlBl-1;
     int p = kZuAusgabe.anzahlPl;
     int onBlock = b;
 
-    for(int i=b; i>0; i--){
+    for(int i=b+1; i>0; i--){
         for(int j=1;j<p; j++){
             if(i!=onBlock){
                 cout << endl;
@@ -176,11 +196,11 @@ void konfigAusgabe(Konfiguration kZuAusgabe){
 }
 
 void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit angabe
-    int b = kZuAusgabe.anzahlBl;
+    int b = kZuAusgabe.anzahlBl-1;
     int p = kZuAusgabe.anzahlPl;
     int onBlock = b;
 
-    for(int i=b; i>0; i--){
+    for(int i=b+1; i>0; i--){
         for(int j=1;j<p; j++){
             if(i!=onBlock){
                 cout << endl;
@@ -200,10 +220,14 @@ void konfigAusgabe(Konfiguration kZuAusgabe, koord besPos){           //mit anga
 Konfiguration eingabe(string inputFile){
     fstream input;
 
+    string line;
+
     input.open(inputFile, std::fstream::in);
 
+    cout << "Start Array" << endl;
+
     if(input.is_open()){
-        int stringNumbers[10];      //speichern der gelesenen Zahlen --> Höchsten 10-stellige Zahlen
+        int stringNumbers[10];      //speichern der Gelesenen Zahlen
         int indexNumber = 0;        //zählt den Index von stringNumbers
         int number = 0;             //zum Aufaddieren der Zahlen
         int factor = 1;
@@ -249,8 +273,10 @@ Konfiguration eingabe(string inputFile){
 //---------------------Ließt den Rest der Datei----------------------
 
         while(input.get(temp)){    //läuft bis keine Zeichen mehr eingelesen werden
-            if(lineIndex <= p)
-                if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
+            if(lineIndex <= p+1)
+                if(temp == '0' && indexNumber == 0){ //wenn 0 gelesen wird und vorher nichts eingelesen wurde
+                    lineIndex++;
+                }else if(temp != ',' && temp != '\n'){    //Zahlen werden eingelesen
                     stringNumbers[indexNumber] = temp - '0';
                     indexNumber++;
                 } else{
@@ -274,6 +300,7 @@ Konfiguration eingabe(string inputFile){
             factor *= 10;
         }
         konfig.addBlock(number, lineIndex);
+
     input.close();
 
     return konfig;

@@ -16,8 +16,8 @@ class Platz
         Platz();
         Platz(int length);
 
-        int getName();              //gibt Name des obersten Blocks
-        int getName(int index);     //gibt Name des Blocks an stelle index
+        int getName();              //gibt Name eines Blocks
+        int getName(int index);
 
         void addBlock(int name);    //fügt neuen Block hinten an
 

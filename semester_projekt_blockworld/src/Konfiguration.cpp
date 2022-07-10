@@ -77,11 +77,11 @@ int Konfiguration::getTop(int platz){
 
 koord Konfiguration::searchBlock(int name){     //gibt Koordinate des Blocks name zurück (<platz>,<höhe>)
 
-    for(int p = 1; p < anzahlPl; p++){
-        for(int i = 1; i < anzahlBl; i++){
+    for(int p = 1; p <= anzahlPl; p++){
+        for(int i = 1; i <= anzahlBl; i++){
             if(plaetze[p]->getName(i) == name)
             {
-                koord platzierung = koord(p,i);
+                koord platzierung(p,i);
                 return platzierung;
             }
         }
